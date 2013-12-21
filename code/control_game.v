@@ -42,7 +42,9 @@ output reg [3-1:0] play_rgb;
 output             rgb_on;//display num
 output reg [3-1:0] out_rgb;
 
-reg flag,success;
+//--------------------------------------------------------------------------------
+// Internal signal
+reg flag;
 reg  [3:0] Ans_Num1, Ans_Num2, Ans_Num3;
 reg  [3:0] num1, num2, num3;
 reg  [1:0] a,b,;
@@ -55,61 +57,61 @@ wire [2:0] bit_addr_s, bit_addr_ab, bit_addr_n;
 wire [7:0] font_word;
 wire       font_Ans_Num1;
 
-always@(posedge CLK)
-begin
-  if(reset)begin
+//--------------------------------------------------------------------------------
+// Parameter declearation
+
+//--------------------------------------------------------------------------------
+// Function Design
+font_rom font_unit(
+  .clk(clk),
+  .addr(rom_addr),
+  .data(font_word)
+);
+
+always@(posedge CLK) begin
+  Ans_Num1 <= Ans_Num1;
+  Ans_Num2 <= Ans_Num2;
+  Ans_Num3 <= Ans_Num3;
+  flag <= flag;
+  if (reset) begin
     Ans_Num1 <= 0;
     Ans_Num2 <= 0;
     Ans_Num3 <= 0;
-    flag<=0;
-  end
-  else begin
-    if(iNumRdy)begin
-      if(!flag)begin
-        flag <= 1;
-        Ans_Num1 <= iNum1;
-        Ans_Num2 <= iNum2;
-        Ans_Num3 <= iNum3;
-      end
-      else begin
-        Ans_Num1 <= Ans_Num1;
-        Ans_Num2 <= Ans_Num2;
-        Ans_Num3 <= Ans_Num3;
-      end
-    end
-    else begin
-      Ans_Num1 <= Ans_Num1;
-      Ans_Num2 <= Ans_Num2;
-      Ans_Num3 <= Ans_Num3;
+    flag <=0;
+  end else if (iNumRdy) begin
+    if(!flag)begin
+      flag <= 1;
+      Ans_Num1 <= iNum1;
+      Ans_Num2 <= iNum2;
+      Ans_Num3 <= iNum3;
     end
   end
 end
 
-always@(posedge CLK)
-begin
-  if(reset)begin
+always@(posedge CLK) begin
+  num1 <= num1;
+  num2 <= iNum2;
+  num3 <= iNum3;
+  if (reset) begin
     num1 <= 0;
     num2 <= 0;
     num3 <= 0;
+  end else if (iNumRdy) begin
+    if (flag) begin
+      num1 <= iNum1;
+      num2 <= iNum2;
+      num3 <= iNum3;
+    end
   end
-  else begin
-    if(iNumRdy)begin
-      if(flag)begin
-        num1 <= iNum1;
-        num2 <= iNum2;
-        num3 <= iNum3;
-      end
-      else begin
-        num1 <= num1;
-        num2 <= num2;
-        num3 <= num3;
-      end
-    end
-    else begin
-      num1 <= num1;
-      num2 <= num2;
-      num3 <= num3;
-    end
+end
+
+always @(*) begin
+  if (flag) begin
+  a = (num1 == Ans_Num1) + (num2 == Ans_Num2) + (num3 == Ans_Num3);
+  b = (num1 == Ans_Num3) + (num1 == Ans_Num2) + (num2 == Ans_Num3) + (num2 == Ans_Num1) + (num3 == Ans_Num1) + (num3 == Ans_Num2);
+  end else begin
+    a = 0;
+    b = 0;
   end
 end
 
@@ -156,7 +158,7 @@ assign row_addr_ab = pix_y[4:2];
 assign bit_addr_ab = pix_x[4:2];
 always @*
   case (pix_x[7:5])
-    4'h0: char_addr_n = 7'h00; //
+    4'h0: char_addr_n = (a == 2'b3)?7'h02:7'h00; //
     4'h1: char_addr_n = 7'h00; //
     4'h2: char_addr_n = 7'h00; // a
     4'h3: char_addr_n = 7'h30  + num1; // A
@@ -165,4 +167,69 @@ always @*
     4'h6: char_addr_n = 7'h00; //
     4'h7: char_addr_n = 7'h30  + num3; // B
   endcase
+
+//-------------------------------------------
+// mux for font ROM addresses and rgb
+//-------------------------------------------
+always @*
+begin
+  hint_rgb = 3'b111;  // background
+  out_rgb  = 3'b111;  // background
+  play_rgb = 3'b111;  // background
+  if (hint_on)
+     begin
+        char_addr = char_addr_s;
+        row_addr = row_addr_s;
+        bit_addr = bit_addr_s;
+        if (font_bit)
+           hint_rgb = 3'b000;
+     end
+  else
+     begin
+        char_addr = 0;
+        row_addr = 0;
+        bit_addr =0;
+        if (font_bit)
+           hint_rgb = 3'b000;
+     end
+  if (play_on)
+     begin
+        char_addr = char_addr_s;
+        row_addr = row_addr_s;
+        bit_addr = bit_addr_s;
+        if (font_bit)
+           play_rgb = 3'b000;
+     end
+  else
+     begin
+        char_addr = 0;
+        row_addr = 0;
+        bit_addr =0;
+        if (font_bit)
+           play_rgb = 3'b000;
+     end
+  if (out_on)
+     begin
+        char_addr = char_addr_s;
+        row_addr = row_addr_s;
+        bit_addr = bit_addr_s;
+        if (font_bit)
+           out_rgb = 3'b000;
+     end
+  else
+     begin
+        char_addr = 0;
+        row_addr = 0;
+        bit_addr =0;
+        if (font_bit)
+           out_rgb = 3'b000;
+     end
+end
+
+//-------------------------------------------
+// font rom interface
+//-------------------------------------------
+assign rom_addr = {char_addr, row_addr}; //
+assign font_bit = font_word[~bit_addr];
+
 endmodule
