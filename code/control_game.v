@@ -47,7 +47,7 @@ output reg [3-1:0] out_rgb;
 reg flag;
 reg  [3:0] Ans_Num1, Ans_Num2, Ans_Num3;
 reg  [3:0] num1, num2, num3;
-reg  [1:0] a,b,;
+reg  [1:0] a,b;
 wire [10:0]rom_addr;
 reg  [6:0] char_addr, char_addr_s, char_addr_ab, char_addr_n;
 reg  [3:0] row_addr;

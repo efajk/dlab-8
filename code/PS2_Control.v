@@ -23,8 +23,8 @@ module PS2_Control(
 //--------------------------------------------------------------------------------
 // I/O ports declearation
 input CLK;
-input PS2_CLK
-input PS2_DATA
+input PS2_CLK;
+input PS2_DATA;
 input reset;
 
 output reg [2:0] oLED;
