@@ -52,7 +52,7 @@ control_text game_title(
   .pix_x(pixel_x),
   .pix_y(pixel_y),
   .text_on(text_on),
-  .text_rgb(text_rgb
+  .text_rgb(text_rgb)
 );
 
 wire [4-1:0] oNum1;
@@ -70,7 +70,6 @@ PS2_Control keyboard_ctrl(
   .oNum3(oNum3),
   .oNumRdy(oNumRdy)
 );
-
 
 wire num_on;
 wire hint_on;
