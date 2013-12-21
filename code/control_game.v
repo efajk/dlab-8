@@ -1,12 +1,46 @@
+//Subject:
+//--------------------------------------------------------------------------------
+//Version:     1
+//--------------------------------------------------------------------------------
+//Writer:      Szuyi Huang
+//----------------------------------------------
+//Date:        2013-12-21 17:34
+//----------------------------------------------
+//Description:
+//--------------------------------------------------------------------------------
 module control_game(
-  input clk,
-  input reset,
-  input [9:0] pix_x,
-  input [9:0] pix_y,  
-  input [3:0] iNum1,
-  input [3:0] iNum2,
-  input [3:0] iNum3,
-  input iNumRdy,
-  input rgb_on,
-  output reg [2:0] out_rgb
-);
+  clk,
+  reset,
+  pix_x,
+  pix_y,
+  iNum1,
+  iNum2,
+  iNum3,
+  iNumRdy,
+  rgb_on,
+  out_rgb
+					);
+
+//--------------------------------------------------------------------------------
+// I/O ports declearation
+input       clk;
+input       reset;
+input [9:0] pix_x;
+input [9:0] pix_y;
+input [3:0] iNum1;
+input [3:0] iNum2;
+input [3:0] iNum3;
+input       iNumRdy;
+input       rgb_on;
+output reg [2:0] out_rgb;
+
+//--------------------------------------------------------------------------------
+// Internal signal
+
+//--------------------------------------------------------------------------------
+// Parameter declearation
+
+//--------------------------------------------------------------------------------
+// Function Design
+
+endmodule
