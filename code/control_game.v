@@ -152,7 +152,7 @@ assign bit_addr_ab = pix_x[5:2];
          4'h7: char_addr_ab = 7'h42; // B
         endcase
 
-assign num_on = (pix_y[9:6]==8) && (pix_x[9:8]==1);
+assign rgb_on = (pix_y[9:6]==8) && (pix_x[9:8]==1);
 assign row_addr_ab = pix_y[5:2];
 assign bit_addr_ab = pix_x[5:2];
    always @*
