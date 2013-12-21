@@ -77,6 +77,7 @@ wire play_on;
 wire [3-1:0] num_rgb;
 wire [3-1:0] hint_rgb;
 wire [3-1:0] play_rgb;
+
 control_game(
   .clk(iCLK_50),
   .reset(reset),
