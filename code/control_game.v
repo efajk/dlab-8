@@ -158,7 +158,7 @@ assign row_addr_ab = pix_y[4:2];
 assign bit_addr_ab = pix_x[4:2];
 always @*
   case (pix_x[7:5])
-    4'h0: char_addr_n = (a == 2'b3)?7'h02:7'h00; //
+    4'h0: char_addr_n = (a == 2'd3)?7'h02:7'h00; //
     4'h1: char_addr_n = 7'h00; //
     4'h2: char_addr_n = 7'h00; // a
     4'h3: char_addr_n = 7'h30  + num1; // A
