@@ -42,10 +42,10 @@ output reg [3-1:0] play_rgb;
 output             rgb_on;//display num
 output reg [3-1:0] out_rgb;
 
-reg flag,;
+reg flag,success;
 reg  [3:0] Ans_Num1, Ans_Num2, Ans_Num3;
 reg  [3:0] num1, num2, num3;
-reg  [1:0] a,b;
+reg  [1:0] a,b,;
 wire [10:0]rom_addr;
 reg  [6:0] char_addr, char_addr_s, char_addr_ab, char_addr_n;
 reg  [3:0] row_addr;
@@ -54,8 +54,7 @@ reg  [2:0] bit_addr;
 wire [2:0] bit_addr_s, bit_addr_ab, bit_addr_n;
 wire [7:0] font_word;
 wire       font_Ans_Num1;
-      Ans_Num2 <= bit;
- 
+      
 always@(posedge CLK)
 begin
   if(reset)begin
@@ -159,7 +158,7 @@ assign bit_addr_ab = pix_x[5:2];
       case (pix_x[7:5])  
          4'h0: char_addr_ab = 7'h00; // 
          4'h1: char_addr_ab = 7'h00; //
-         4'h2: char_addr_ab = 7'h00; // 
+         4'h2: char_addr_ab = flag ? 7'h30 + b : 7'h00; // a
          4'h3: char_addr_ab = 7'h41; // A 
          4'h4: char_addr_ab = 7'h00; // 
          4'h5: char_addr_ab = flag ? 7'h30 + b : 7'h00; // b
