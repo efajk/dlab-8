@@ -87,7 +87,11 @@ control_game(
   .iNum2(oNum2),
   .iNum3(oNum3),
   .iNumRdy(oNumRdy),
+  .hint_on(hint_on),
+  .play_on(play_on),
   .rgb_on(num_on),
+  .hint_rgb(hint_rgb),
+  .play_rgb(play_rgb),
   .out_rgb(num_rgb)
 );
 

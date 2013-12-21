@@ -17,7 +17,11 @@ module control_game(
   iNum2,
   iNum3,
   iNumRdy,
+  hint_on,
+  play_on,
   rgb_on,
+  hint_rgb,
+  play_rgb,
   out_rgb
 					);
 
@@ -31,8 +35,12 @@ input [3:0] iNum1;
 input [3:0] iNum2;
 input [3:0] iNum3;
 input       iNumRdy;
-output       rgb_on;
-output reg [2:0] out_rgb;
+output             hint_on;
+output             play_on;
+output reg [3-1:0] hint_rgb;
+output reg [3-1:0] play_rgb;
+output             rgb_on;
+output reg [3-1:0] out_rgb;
 
 //--------------------------------------------------------------------------------
 // Internal signal
