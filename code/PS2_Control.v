@@ -39,10 +39,12 @@ reg         KCLK_P;
 reg         KCLK_C;
 reg  [21:0] ARRAY;
 wire        enable;
-reg   [3:0] oNum1;
-reg   [3:0] oNum2;
-reg   [3:0] oNum3;
-reg         oNumRdy;
+reg         in_flag;
+reg         in_flag_w;
+reg   [3:0] oNum1_w;
+reg   [3:0] oNum2_w;
+reg   [3:0] oNum3_w;
+reg         oNumRdy_w;
 reg [3-1:0] state;
 reg [3-1:0] next;
 
@@ -192,8 +194,8 @@ always @(*) begin
             if (in_flag) next = 3'd3;
           end
           3'd3: begin
-            if (in_flag) next = 3'd4;
-            if (in_flag) oNumRdy_w = 1;
+            next = 3'd4;
+            oNumRdy_w = 1;
           end
           3'd4: begin
             oNumRdy_w = 0;

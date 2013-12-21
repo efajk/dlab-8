@@ -68,7 +68,7 @@ font_rom font_unit(
   .data(font_word)
 );
 
-always@(posedge CLK) begin
+always@(posedge clk) begin
   Ans_Num1 <= Ans_Num1;
   Ans_Num2 <= Ans_Num2;
   Ans_Num3 <= Ans_Num3;
@@ -88,7 +88,7 @@ always@(posedge CLK) begin
   end
 end
 
-always@(posedge CLK) begin
+always@(posedge clk) begin
   num1 <= num1;
   num2 <= iNum2;
   num3 <= iNum3;
@@ -178,9 +178,9 @@ begin
   play_rgb = 3'b111;  // background
   if (hint_on)
      begin
-        char_addr = char_addr_s;
-        row_addr = row_addr_s;
-        bit_addr = bit_addr_s;
+        char_addr = char_addr_ab;
+        row_addr = row_addr_ab;
+        bit_addr = bit_addr_ab;
         if (font_bit)
            hint_rgb = 3'b000;
      end
@@ -210,9 +210,9 @@ begin
      end
   if (out_on)
      begin
-        char_addr = char_addr_s;
-        row_addr = row_addr_s;
-        bit_addr = bit_addr_s;
+        char_addr = char_addr_n;
+        row_addr = row_addr_n;
+        bit_addr = bit_addr_n;
         if (font_bit)
            out_rgb = 3'b000;
      end
