@@ -193,10 +193,10 @@ always @(*) begin
           end
           3'd3: begin
             if (in_flag) next = 3'd4;
-            //if (in_flag) oNumRdy_w = 1;
+            if (in_flag) oNumRdy_w = 1;
           end
           3'd4: begin
-            oNumRdy_w = 1;
+            oNumRdy_w = 0;
             next = 3'd0;
           end
         endcase
