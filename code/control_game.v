@@ -43,44 +43,74 @@ output             rgb_on;//display num
 output reg [3-1:0] out_rgb;
 
 reg flag,;
-reg  [3:0] Ans_Num1;
-reg  [3:0] Ans_Num2;
-reg  [3:0] Ans_Num3;
-reg  [1:0] cnt;
-reg  [1:0] cnt_w;
-reg  [1:0] a;
-reg  [1:0] b;
+reg  [3:0] Ans_Num1, Ans_Num2, Ans_Num3;
+reg  [3:0] num1, num2, num3;
+reg  [1:0] a,b;
 wire [10:0]rom_addr;
-reg  [6:0] char_addr,char_addr_s,char_addr_ab,char_addr_n;
+reg  [6:0] char_addr, char_addr_s, char_addr_ab, char_addr_n;
 reg  [3:0] row_addr;
-wire [3:0] row_addr_s,row_addr_ab,row_addr_n;
+wire [3:0] row_addr_s, row_addr_ab, row_addr_n;
 reg  [2:0] bit_addr;
-wire [2:0] bit_addr_s,bit_addr_ab,bit_addr_n;
+wire [2:0] bit_addr_s, bit_addr_ab, bit_addr_n;
 wire [7:0] font_word;
-wire       font_bit;
+wire       font_Ans_Num1;
+      Ans_Num2 <= bit;
  
 always@(posedge CLK)
 begin
-  if(reset)
-    flag<=0;
-  else begin
-    if(iNumRdy)
-      flag<=1;
-    else
-      flag<=flag;
+  if(reset)begin
+    Ans_Num1 <= 0;
+    Ans_Num2 <= 0;
+    Ans_Num3 <= 0;
+    flag<=0; 
+  end
+  else begin 
+    if(iNumRdy)begin
+      if(!flag)begin
+        flag <= 1;
+        Ans_Num1 <= iNum1;
+        Ans_Num2 <= iNum2;
+        Ans_Num3 <= iNum3;
+      end
+      else begin
+        Ans_Num1 <= Ans_Num1;
+        Ans_Num2 <= Ans_Num2;
+        Ans_Num3 <= Ans_Num3;
+      end
+    end
+    else begin
+      Ans_Num1 <= Ans_Num1;
+      Ans_Num2 <= Ans_Num2;
+      Ans_Num3 <= Ans_Num3;
+    end
   end
 end
+
 always@(posedge CLK)
 begin
-  if(!flag)begin
-    Ans_Num1 = iNum1;
-    Ans_Num2 = iNum2;
-    Ans_Num3 = iNum3; 
+  if(reset)begin
+    num1 <= 0;
+    num2 <= 0;
+    num3 <= 0; 
   end
   else begin
-    Ans_Num1 = Ans_Num1;
-    Ans_Num2 = Ans_Num2;
-    Ans_Num3 = Ans_Num3;    
+    if(iNumRdy)begin
+      if(flag)begin
+        num1 <= iNum1;
+        num2 <= iNum2;
+        num3 <= iNum3;    
+      end
+      else begin
+        num1 <= num1;
+        num2 <= num2;
+        num3 <= num3;
+      end
+    end
+    else begin 
+      num1 <= num1;
+      num2 <= num2;
+      num3 <= num3;  
+    end
   end
 end
 
@@ -107,7 +137,7 @@ assign bit_addr_s = pix_x[4:2];
          4'hf: char_addr_s = 7'h00; //
       endcase
 
-assign hint_on = (pix_y[9:6]==7) && (pix_x[9:8]==1);
+assign hint_on = (pix_y[9:6]==8) && (pix_x[9:8]==1);
 assign row_addr_ab = pix_y[5:2];
 assign bit_addr_ab = pix_x[5:2];
    always @*
@@ -122,31 +152,21 @@ assign bit_addr_ab = pix_x[5:2];
          4'h7: char_addr_ab = 7'h42; // B
         endcase
 
+assign num_on = (pix_y[9:6]==8) && (pix_x[9:8]==1);
+assign row_addr_ab = pix_y[5:2];
+assign bit_addr_ab = pix_x[5:2];
+   always @*
+      case (pix_x[7:5])  
+         4'h0: char_addr_ab = 7'h00; // 
+         4'h1: char_addr_ab = 7'h00; //
+         4'h2: char_addr_ab = 7'h00; // 
+         4'h3: char_addr_ab = 7'h41; // A 
+         4'h4: char_addr_ab = 7'h00; // 
+         4'h5: char_addr_ab = flag ? 7'h30 + b : 7'h00; // b
+         4'h6: char_addr_ab = 7'h00; // 
+         4'h7: char_addr_ab = 7'h42; // B
+        endcase
 
-always@(posedge CLK)
-begin
-  if(reset)
-    cnt <= 0;
-  else
-    cnt <= cnt_w;
-end
-
-always@(iNumRdy)
-begin
-  if(iNumRdy)begin
-    if(cnt!=2'd2)
-      cnt_w = cnt + 1;
-    else
-      cnt_w = cnt;
-  end
-  else
-    cnt_w = cnt;
-end
-
-always@(posedge CLK)
-begin
-  if(cnt==2'd2)begin
-    if()
     
 
 
