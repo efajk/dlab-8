@@ -1,11 +1,45 @@
+//Subject:
+//--------------------------------------------------------------------------------
+//Version:     1
+//--------------------------------------------------------------------------------
+//Writer:      Szuyi Huang
+//----------------------------------------------
+//Date:        2013-12-21 17:31
+//----------------------------------------------
+//Description:
+//--------------------------------------------------------------------------------
 module PS2_Control(
-  input CLK,
-  input PS2_CLK,
-  input PS2_DATA,
-  input reset,
-  output reg [2:0]oLED,
-  output reg [3:0] oNum1,
-  output reg [3:0] oNum2,
-  output reg [3:0] oNum3,
-  output reg oNumRdy
+  CLK,
+  PS2_CLK,
+  PS2_DATA,
+  reset,
+  oLED,
+  oNum1,
+  oNum2,
+  oNum3,
+  oNumRdy
 );
+
+//--------------------------------------------------------------------------------
+// I/O ports declearation
+input CLK;
+input PS2_CLK
+input PS2_DATA
+input reset;
+
+output reg [2:0] oLED;
+output reg [3:0] oNum1;
+output reg [3:0] oNum2;
+output reg [3:0] oNum3;
+output reg       oNumRdy;
+
+//--------------------------------------------------------------------------------
+// Internal signal
+
+//--------------------------------------------------------------------------------
+// Parameter declearation
+
+//--------------------------------------------------------------------------------
+// Function Design
+
+endmodule

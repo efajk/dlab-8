@@ -1,24 +1,24 @@
 //////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date:     
-// Design Name: 
-// Module Name:   BullandCow  
-// Project Name:  
-// Target Devices: 
-// Tool versions: 
-// Description: 
+// Company:
+// Engineer:
 //
-// Dependencies: 
+// Create Date:
+// Design Name:
+// Module Name:   BullandCow
+// Project Name:
+// Target Devices:
+// Tool versions:
+// Description:
 //
-// Revision: 
+// Dependencies:
+//
+// Revision:
 // Revision 0.01 - File Created
-// Additional Comments: 
+// Additional Comments:
 //
 //////////////////////////////////////////////////////////////////////////////////
 
-module BullandCow(  
+module BullandCow(
   input wire iCLK_50, reset,
 	input PS2_CLK,
 	input PS2_DATA,
@@ -28,13 +28,5 @@ module BullandCow(
   output wire  oVGA_B,
 	output wire [7:0] oLED
 );
-
-
-
-
-
-
-
-
 
 endmodule
