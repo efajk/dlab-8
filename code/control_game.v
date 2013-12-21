@@ -54,16 +54,16 @@ reg  [2:0] bit_addr;
 wire [2:0] bit_addr_s, bit_addr_ab, bit_addr_n;
 wire [7:0] font_word;
 wire       font_Ans_Num1;
-      
+
 always@(posedge CLK)
 begin
   if(reset)begin
     Ans_Num1 <= 0;
     Ans_Num2 <= 0;
     Ans_Num3 <= 0;
-    flag<=0; 
+    flag<=0;
   end
-  else begin 
+  else begin
     if(iNumRdy)begin
       if(!flag)begin
         flag <= 1;
@@ -90,14 +90,14 @@ begin
   if(reset)begin
     num1 <= 0;
     num2 <= 0;
-    num3 <= 0; 
+    num3 <= 0;
   end
   else begin
     if(iNumRdy)begin
       if(flag)begin
         num1 <= iNum1;
         num2 <= iNum2;
-        num3 <= iNum3;    
+        num3 <= iNum3;
       end
       else begin
         num1 <= num1;
@@ -105,77 +105,64 @@ begin
         num3 <= num3;
       end
     end
-    else begin 
+    else begin
       num1 <= num1;
       num2 <= num2;
-      num3 <= num3;  
+      num3 <= num3;
     end
   end
 end
 
 assign play_on = (pix_y[9:6]==3) && (pix_x[9:8]==1)&& flag;
-assign row_addr_s = pix_y[5:2];
+assign row_addr_s = pix_y[4:2];
 assign bit_addr_s = pix_x[4:2];
-   always @*
-      case (pix_x[8:5])  
-         4'h0: char_addr_s = 7'h47; // G
-         4'h1: char_addr_s = 7'h41; // A
-         4'h2: char_addr_s = 7'h4d; // M
-         4'h3: char_addr_s = 7'h45; // E
-         4'h4: char_addr_s = 7'h00; // 
-         4'h5: char_addr_s = 7'h00; // 
-         4'h6: char_addr_s = 7'h53; // S
-         4'h7: char_addr_s = 7'h54; // T
-         4'h8: char_addr_s = 7'h41; // A
-         4'h9: char_addr_s = 7'h52; // R
-         4'ha: char_addr_s = 7'h54; // T
-         4'hb: char_addr_s = 7'h00; // 
-         4'hc: char_addr_s = 7'h21; // !
-         4'hd: char_addr_s = 7'h21; // !
-         4'he: char_addr_s = 7'h00; // 
-         4'hf: char_addr_s = 7'h00; //
-      endcase
+always @*
+  case (pix_x[8:5])
+    4'h0: char_addr_s = 7'h47; // G
+    4'h1: char_addr_s = 7'h41; // A
+    4'h2: char_addr_s = 7'h4d; // M
+    4'h3: char_addr_s = 7'h45; // E
+    4'h4: char_addr_s = 7'h00; //
+    4'h5: char_addr_s = 7'h00; //
+    4'h6: char_addr_s = 7'h53; // S
+    4'h7: char_addr_s = 7'h54; // T
+    4'h8: char_addr_s = 7'h41; // A
+    4'h9: char_addr_s = 7'h52; // R
+    4'ha: char_addr_s = 7'h54; // T
+    4'hb: char_addr_s = 7'h00; //
+    4'hc: char_addr_s = 7'h21; // !
+    4'hd: char_addr_s = 7'h21; // !
+    4'he: char_addr_s = 7'h00; //
+    4'hf: char_addr_s = 7'h00; //
+  endcase
 
 assign hint_on = (pix_y[9:6]==8) && (pix_x[9:8]==1);
-assign row_addr_ab = pix_y[5:2];
-assign bit_addr_ab = pix_x[5:2];
-   always @*
-      case (pix_x[7:5])  
-         4'h0: char_addr_ab = 7'h00; // 
-         4'h1: char_addr_ab = flag ? 7'h30 + a : 7'h00; // a 
-         4'h2: char_addr_ab = 7'h00; // 
-         4'h3: char_addr_ab = 7'h41; // A 
-         4'h4: char_addr_ab = 7'h00; // 
-         4'h5: char_addr_ab = flag ? 7'h30 + b : 7'h00; // b
-         4'h6: char_addr_ab = 7'h00; // 
-         4'h7: char_addr_ab = 7'h42; // B
-        endcase
+assign row_addr_ab = pix_y[4:2];
+assign bit_addr_ab = pix_x[4:2];
+always @*
+  case (pix_x[7:5])
+    4'h0: char_addr_ab = 7'h00; //
+    4'h1: char_addr_ab = 7'h30 + a; // a
+    4'h2: char_addr_ab = 7'h00; //
+    4'h3: char_addr_ab = 7'h41; // A
+    4'h4: char_addr_ab = 7'h00; //
+    4'h5: char_addr_ab = 7'h30 + b; // b
+    4'h6: char_addr_ab = 7'h00; //
+    4'h7: char_addr_ab = 7'h42; // B
+  endcase
 
-assign rgb_on = (pix_y[9:6]==8) && (pix_x[9:8]==1);
-assign row_addr_ab = pix_y[5:2];
-assign bit_addr_ab = pix_x[5:2];
-   always @*
-      case (pix_x[7:5])  
-         4'h0: char_addr_ab = 7'h00; // 
-         4'h1: char_addr_ab = 7'h00; //
-         4'h2: char_addr_ab = flag ? 7'h30 + b : 7'h00; // a
-         4'h3: char_addr_ab = 7'h41; // A 
-         4'h4: char_addr_ab = 7'h00; // 
-         4'h5: char_addr_ab = flag ? 7'h30 + b : 7'h00; // b
-         4'h6: char_addr_ab = 7'h00; // 
-         4'h7: char_addr_ab = 7'h42; // B
-        endcase
-
-    
-
-
-
-
-
-
-
-
-
-
-
+assign rgb_on = (pix_y[9:6]==6) && (pix_x[9:8]==1);
+assign row_addr_ab = pix_y[4:2];
+assign bit_addr_ab = pix_x[4:2];
+always @*
+  case (pix_x[7:5])
+    4'h0: char_addr_n = 7'h00; //
+    4'h1: char_addr_n = 7'h00; //
+    4'h2: char_addr_n = 7'h00; // a
+    4'h3: char_addr_n = 7'h30  + num1; // A
+    4'h4: char_addr_n = 7'h00; //
+    4'h5: char_addr_n = 7'h30  + num2; // b
+    4'h6: char_addr_n = 7'h00; //
+    4'h7: char_addr_n = 7'h30  + num3; // B
+  endcase
 endmodule
