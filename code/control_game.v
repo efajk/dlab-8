@@ -56,6 +56,7 @@ reg  [2:0] bit_addr;
 wire [2:0] bit_addr_s, bit_addr_ab, bit_addr_n;
 wire [7:0] font_word;
 wire       font_Ans_Num1;
+wire       font_bit;
 
 //--------------------------------------------------------------------------------
 // Parameter declearation
@@ -208,7 +209,7 @@ begin
         if (font_bit)
            play_rgb = 3'b000;
      end
-  if (out_on)
+  if (rgb_on)
      begin
         char_addr = char_addr_n;
         row_addr = row_addr_n;
