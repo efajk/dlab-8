@@ -106,9 +106,9 @@ always@(posedge clk) begin
 end
 
 always @(*) begin
-  if (flag && iNumRdy) begin
-  a = (iNum1 == Ans_Num1) + (iNum2 == Ans_Num2) + (iNum3 == Ans_Num3);
-  b = (iNum1 == Ans_Num3) + (iNum1 == Ans_Num2) + (iNum2 == Ans_Num3) + (iNum2 == Ans_Num1) + (iNum3 == Ans_Num1) + (iNum3 == Ans_Num2);
+  if (flag && ~iNumRdy) begin
+  a = (num1 == Ans_Num1) + (num2 == Ans_Num2) + (num3 == Ans_Num3);
+  b = (num1 == Ans_Num3) + (num1 == Ans_Num2) + (num2 == Ans_Num3) + (num2 == Ans_Num1) + (num3 == Ans_Num1) + (num3 == Ans_Num2);
   end else begin
     a = 0;
     b = 0;
