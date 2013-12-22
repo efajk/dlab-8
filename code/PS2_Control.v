@@ -96,10 +96,12 @@ always @(*) begin
   oNum3_w = oNum3;
   oNumRdy_w = oNumRdy;
   in_flag_w = in_flag;
-  if (state == 3'd4)
+  if (state == 3'd4) begin
     next = 3'd0;
-  else
+    iNumRdy = 0;
+  end else begin
     next = state;
+  end
   if (ARRAY[8:1] == 8'hF0 && {ARRAY[21], ARRAY[11:10], ARRAY[0]} == 4'b1010 && enable) begin
     case (ARRAY[19:12])
       8'h16: begin
