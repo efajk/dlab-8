@@ -115,7 +115,7 @@ always @(*) begin
   end
 end
 
-assign play_on = (pix_y[9:6]==1) && (pix_x[9:8]==1)&& flag;
+assign play_on = (pix_y[9:6]==1) && (pix_x[9] == 0)&& flag;
 assign row_addr_s = pix_y[5:2];
 assign bit_addr_s = pix_x[4:2];
 always @*
