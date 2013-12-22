@@ -106,9 +106,9 @@ always@(posedge clk) begin
 end
 
 always @(*) begin
-  if (flag) begin
-  a = (num1 == Ans_Num1) + (num2 == Ans_Num2) + (num3 == Ans_Num3);
-  b = (num1 == Ans_Num3) + (num1 == Ans_Num2) + (num2 == Ans_Num3) + (num2 == Ans_Num1) + (num3 == Ans_Num1) + (num3 == Ans_Num2);
+  if (flag && iNumRdy) begin
+  a = (iNum1 == Ans_Num1) + (iNum2 == Ans_Num2) + (iNum3 == Ans_Num3);
+  b = (iNum1 == Ans_Num3) + (iNum1 == Ans_Num2) + (iNum2 == Ans_Num3) + (iNum2 == Ans_Num1) + (iNum3 == Ans_Num1) + (iNum3 == Ans_Num2);
   end else begin
     a = 0;
     b = 0;
@@ -144,11 +144,11 @@ assign bit_addr_ab = pix_x[4:2];
 always @*
   case (pix_x[7:5])
     4'h0: char_addr_ab = 7'h00; //
-    4'h1: char_addr_ab = 7'h30 + a; // a
+    4'h1: char_addr_ab = (flag) ? 7'h30 + a : 7'h00; // a
     4'h2: char_addr_ab = 7'h00; //
     4'h3: char_addr_ab = 7'h41; // A
     4'h4: char_addr_ab = 7'h00; //
-    4'h5: char_addr_ab = 7'h30 + b; // b
+    4'h5: char_addr_ab = (flag) ? 7'h30 + b : 7'h00; // b
     4'h6: char_addr_ab = 7'h00; //
     4'h7: char_addr_ab = 7'h42; // B
   endcase
