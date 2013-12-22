@@ -98,7 +98,7 @@ always @(*) begin
   in_flag_w = in_flag;
   if (state == 3'd4) begin
     next = 3'd0;
-    iNumRdy = 0;
+    oNumRdy_w = 0;
   end else begin
     next = state;
   end

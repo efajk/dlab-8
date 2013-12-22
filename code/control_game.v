@@ -94,8 +94,8 @@ end
 
 always@(posedge clk) begin
   num1 <= num1;
-  num2 <= iNum2;
-  num3 <= iNum3;
+  num2 <= num2;
+  num3 <= num3;
   if (reset) begin
     num1 <= 0;
     num2 <= 0;
