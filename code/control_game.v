@@ -72,7 +72,7 @@ always@(posedge clk) begin
   Ans_Num1 <= Ans_Num1;
   Ans_Num2 <= Ans_Num2;
   Ans_Num3 <= Ans_Num3;
-  flag <= flag;
+  flag <= flag_w;
   if (reset) begin
     Ans_Num1 <= 0;
     Ans_Num2 <= 0;
@@ -80,12 +80,16 @@ always@(posedge clk) begin
     flag <=0;
   end else if (iNumRdy) begin
     if(!flag)begin
-      flag <= 1;
       Ans_Num1 <= iNum1;
       Ans_Num2 <= iNum2;
       Ans_Num3 <= iNum3;
     end
   end
+end
+always @(*) begin
+  flag_w = flag;
+  if (~flag && iNumRdy)
+    flag_w = 1;
 end
 
 always@(posedge clk) begin
@@ -106,7 +110,7 @@ always@(posedge clk) begin
 end
 
 always @(*) begin
-  if (flag && ~iNumRdy) begin
+  if (flag) begin
   a = (num1 == Ans_Num1) + (num2 == Ans_Num2) + (num3 == Ans_Num3);
   b = (num1 == Ans_Num3) + (num1 == Ans_Num2) + (num2 == Ans_Num3) + (num2 == Ans_Num1) + (num3 == Ans_Num1) + (num3 == Ans_Num2);
   end else begin
