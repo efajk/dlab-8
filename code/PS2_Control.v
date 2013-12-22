@@ -96,10 +96,10 @@ always @(*) begin
   oNum3_w = oNum3;
   oNumRdy_w = oNumRdy;
   in_flag_w = in_flag;
-  //if (state == 3'd4)
-    //next = 3'd0;
-  //else
-  next = state;
+  if (state == 3'd4)
+    next = 3'd0;
+  else
+    next = state;
   if (ARRAY[8:1] == 8'hF0 && {ARRAY[21], ARRAY[11:10], ARRAY[0]} == 4'b1010 && enable) begin
     case (ARRAY[19:12])
       8'h16: begin
@@ -196,10 +196,6 @@ always @(*) begin
           3'd3: begin
             next = 3'd4;
             oNumRdy_w = 1;
-          end
-          3'd4: begin
-            oNumRdy_w = 0;
-            next = 3'd0;
           end
         endcase
         in_flag_w = 0;
