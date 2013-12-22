@@ -45,6 +45,7 @@ output reg [3-1:0] out_rgb;
 //--------------------------------------------------------------------------------
 // Internal signal
 reg flag;
+reg flag_w;
 reg  [3:0] Ans_Num1, Ans_Num2, Ans_Num3;
 reg  [3:0] num1, num2, num3;
 reg  [1:0] a,b;
