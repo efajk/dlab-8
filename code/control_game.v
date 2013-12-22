@@ -161,11 +161,11 @@ always @*
     4'h0: char_addr_n = (a == 2'd3)?7'h02:7'h00; //
     4'h1: char_addr_n = 7'h00; //
     4'h2: char_addr_n = 7'h00; // a
-    4'h3: char_addr_n = 7'h30  + num1; // A
+    4'h3: char_addr_n = (flag)?(7'h30  + num1): 7'h00; // A
     4'h4: char_addr_n = 7'h00; //
-    4'h5: char_addr_n = 7'h30  + num2; // b
+    4'h5: char_addr_n = (flag)?(7'h30  + num2): 7'h00; // b
     4'h6: char_addr_n = 7'h00; //
-    4'h7: char_addr_n = 7'h30  + num3; // B
+    4'h7: char_addr_n = (flag)?(7'h30  + num3): 7'h00; // B
   endcase
 
 //-------------------------------------------
