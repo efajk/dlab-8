@@ -115,7 +115,7 @@ always @(*) begin
   end
 end
 
-assign play_on = (pix_y[9:6]==3) && (pix_x[9:8]==1)&& flag;
+assign play_on = (pix_y[9:6]==1) && (pix_x[9:8]==1)&& flag;
 assign row_addr_s = pix_y[5:2];
 assign bit_addr_s = pix_x[4:2];
 always @*
@@ -138,7 +138,7 @@ always @*
     4'hf: char_addr_s = 7'h00; //
   endcase
 
-assign hint_on = (pix_y[9:6]==8) && (pix_x[9:8]==1);
+assign hint_on = (pix_y[9:6]==3) && (pix_x[9:8]==1);
 assign row_addr_ab = pix_y[5:2];
 assign bit_addr_ab = pix_x[4:2];
 always @*
@@ -153,7 +153,7 @@ always @*
     4'h7: char_addr_ab = 7'h42; // B
   endcase
 
-assign rgb_on = (pix_y[9:6]==6) && (pix_x[9:8]==1);
+assign rgb_on = (pix_y[9:6]==2) && (pix_x[9:8]==1);
 assign row_addr_n = pix_y[5:2];//changed
 assign bit_addr_n = pix_x[4:2];
 always @*
