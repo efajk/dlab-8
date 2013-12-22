@@ -121,4 +121,5 @@ always @(*) begin
 end
 
 assign {oVGA_R, oVGA_G, oVGA_B} = rgb_reg;
+
 endmodule

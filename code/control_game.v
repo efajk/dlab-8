@@ -55,7 +55,6 @@ wire [3:0] row_addr_s, row_addr_ab, row_addr_n;
 reg  [2:0] bit_addr;
 wire [2:0] bit_addr_s, bit_addr_ab, bit_addr_n;
 wire [7:0] font_word;
-wire       font_Ans_Num1;
 wire       font_bit;
 
 //--------------------------------------------------------------------------------
@@ -117,7 +116,7 @@ always @(*) begin
 end
 
 assign play_on = (pix_y[9:6]==3) && (pix_x[9:8]==1)&& flag;
-assign row_addr_s = pix_y[4:2];
+assign row_addr_s = pix_y[5:2];
 assign bit_addr_s = pix_x[4:2];
 always @*
   case (pix_x[8:5])
@@ -140,7 +139,7 @@ always @*
   endcase
 
 assign hint_on = (pix_y[9:6]==8) && (pix_x[9:8]==1);
-assign row_addr_ab = pix_y[4:2];
+assign row_addr_ab = pix_y[5:2];
 assign bit_addr_ab = pix_x[4:2];
 always @*
   case (pix_x[7:5])
@@ -155,8 +154,8 @@ always @*
   endcase
 
 assign rgb_on = (pix_y[9:6]==6) && (pix_x[9:8]==1);
-assign row_addr_ab = pix_y[4:2];
-assign bit_addr_ab = pix_x[4:2];
+assign row_addr_n = pix_y[5:2];//changed
+assign bit_addr_n = pix_x[4:2];
 always @*
   case (pix_x[7:5])
     4'h0: char_addr_n = (a == 2'd3)?7'h02:7'h00; //
@@ -185,15 +184,15 @@ begin
         if (font_bit)
            hint_rgb = 3'b000;
      end
-  else
+  /*else
      begin
         char_addr = 0;
         row_addr = 0;
         bit_addr =0;
         if (font_bit)
            hint_rgb = 3'b000;
-     end
-  if (play_on)
+     end*/
+  else if (play_on)
      begin
         char_addr = char_addr_s;
         row_addr = row_addr_s;
@@ -201,15 +200,15 @@ begin
         if (font_bit)
            play_rgb = 3'b000;
      end
-  else
+  /*else
      begin
         char_addr = 0;
         row_addr = 0;
         bit_addr =0;
         if (font_bit)
            play_rgb = 3'b000;
-     end
-  if (rgb_on)
+     end*/
+   else if (rgb_on)
      begin
         char_addr = char_addr_n;
         row_addr = row_addr_n;
@@ -222,8 +221,8 @@ begin
         char_addr = 0;
         row_addr = 0;
         bit_addr =0;
-        if (font_bit)
-           out_rgb = 3'b000;
+        /*if (font_bit)
+           out_rgb = 3'b000;*/
      end
 end
 
